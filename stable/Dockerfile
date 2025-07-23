@@ -17,6 +17,7 @@ WORKDIR /tmp/setup
 # Prepare system
 RUN apt-get update -y && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --yes \
+  xvfb x11vnc twm \
   curl \
   ca-certificates \
   unzip && \
