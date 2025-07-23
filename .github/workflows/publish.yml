@@ -60,7 +60,7 @@ jobs:
             type=match,pattern=v(\d+.\d+.\w+)+\-(stable|latest),group=2
 
       - name: Build and push ibgateway
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{ steps.channel.outputs.channel }}
           cache-from: type=gha
@@ -88,7 +88,7 @@ jobs:
             type=match,pattern=v(\d+.\d+.\w+)+\-(stable|latest),group=2
 
       - name: Build and push TWS
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
             context: ${{ steps.channel.outputs.channel }}
             file: ${{ steps.channel.outputs.channel }}/Dockerfile.tws
