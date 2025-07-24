@@ -83,10 +83,17 @@ RUN apt-get update -y && \
   useradd -ms /bin/bash --uid ${USER_ID} --gid ${USER_GID} ibgateway && \
   chmod a+x ${SCRIPT_PATH}/*.sh
 
-USER ${USER_ID}:${USER_GID}
-WORKDIR ${HOME}
+# Still as root user here
 
-# Start run script
+# Inject secrets into config.ini at runtime
+COPY ./scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Now switch to ibgateway user
+USER ${USER_ID}:${USER_GID}
+
+# Final start logic
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/home/ibgateway/scripts/run.sh"]
 
 LABEL org.opencontainers.image.source=https://github.com/gnzsnz/ib-gateway-docker
